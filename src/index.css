@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background: theme('colors.cream');
+    color: theme('colors.ink');
+    font-family: theme('fontFamily.sans');
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  a {
+    color: theme('colors.forest');
+  }
+
+  a:hover {
+    color: theme('colors.brick');
+  }
+
+  ::selection {
+    background: rgba(184, 146, 90, 0.32);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* ----- Scrollbar customizada — padrão "linha" (traço bronze de 4px) ----- */
+
+/* Firefox (não suporta ::-webkit-scrollbar). Isolado em @supports para o
+   Chrome >=121 não desativar as regras ::-webkit-scrollbar abaixo. */
+@supports not selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: #b8925a transparent;
+  }
+}
+
+/* Chrome / Edge / Safari — linha mínima, sem track nem botões de seta */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #b8925a;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #c9a86a;
+}
+::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+@layer components {
+  /* Moldura de galeria — hairline bronze + fundo paper */
+  .frame {
+    border: 1px solid rgba(184, 146, 90, 0.6);
+    background: theme('colors.paper');
+  }
+
+  /* Label uppercase padrão do estúdio */
+  .eyebrow {
+    font-family: theme('fontFamily.sans');
+    font-weight: 600;
+    font-size: 11.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+}
+
+/* ----- Reveal on scroll ----- */
+[data-reveal] {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-ready {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.95s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.95s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.reveal-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-ready {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ----- Map marker pulse ----- */
+@keyframes lpPulse {
+  0% {
+    transform: scale(0.55);
+    opacity: 0.95;
+  }
+  70% {
+    transform: scale(2.3);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.3);
+    opacity: 0;
+  }
+}
+
+/* ----- Leaflet map tuning ----- */
+.lp-map .leaflet-control-attribution {
+  background: rgba(247, 244, 239, 0.85);
+  color: #8a8171;
+  font: 400 10px 'Source Sans 3', sans-serif;
+  padding: 2px 6px;
+}
+
+.lp-map .leaflet-control-attribution a {
+  color: #6b6250;
+}
