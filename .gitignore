@@ -9,9 +9,9 @@ dist-ssr
 vite.config.js
 vite.config.d.ts
 
-# assets gerados no build
+# WebP gerado no build (o PNG versionado é o fallback)
 public/images/*.webp
-public/og-image.jpg
+# og-image.jpg e favicon.ico são versionados como assets estáticos (gerados uma vez)
 
 # logs / editor
 npm-debug.log*
